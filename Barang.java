@@ -1,3 +1,4 @@
+
 public class Barang {
   private int w;
   private int v;
@@ -11,15 +12,15 @@ public class Barang {
     this.w = w;
   }
 
-  public int getw(){
+  public int getW(){
     return w;
   }
 
-  public setV(int v){
+  public void setV(int v){
     this.v = v;
   }
 
-  public getV(){
+  public int getV(){
     return v;
   }
 

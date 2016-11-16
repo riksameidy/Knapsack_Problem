@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class Driver {
-  public static void main(String[] args)
+  public static void main(String[] args){
     Scanner s = new Scanner(System.in);
-    Tubes knapsack;
+    Tubes knapsack = new Tubes(0);
 
     boolean menu = true;
     while(menu){
@@ -39,12 +39,27 @@ public class Driver {
           }
           break;
         case 2:
+          System.out.println("============ List Barang =====================");
+          if(knapsack==null || knapsack.getBarang()==null|| knapsack.getBarang().isEmpty()){
+            System.out.println("Barang Belum Ada");
+            break;
+          }
+          int i = 1;
+          for(Barang b: knapsack.getBarang()){
+            System.out.println("idBarang: " + i);
+            System.out.println("Value: " + b.getV());
+            System.out.println("Weight: " + b.getW());
+            System.out.println("===========================================");
+            i++;
+          }
           break;
         case 3:
           break;
         case 4:
           break;
         case 5:
+          break;
+        case 6:
           menu = false;
           break;
       }
