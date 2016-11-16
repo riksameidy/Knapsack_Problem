@@ -21,13 +21,14 @@ public class Driver {
         case 1:
           System.out.println("Masukan Kapasitas Knapsack");
           int k = s.nextInt();
-          if(k<4 || k>20){
-            System.out.println("Input Harus Minimal 4 dan Maksimal 20");
-            break;
-          }
+
           knapsack = new Tubes(k);
           System.out.println("Masukan Jumlah Barang");
           int jum = s.nextInt();
+          if(jum<4 || jum>20){
+            System.out.println("Input Harus Minimal 4 dan Maksimal 20");
+            break;
+          }
           for (int i=0; i<jum;i++ ) {
             System.out.println("=========== Barang " + (i+1) + "============");
             System.out.print("Masukkan Weight: ");
@@ -54,6 +55,7 @@ public class Driver {
           }
           break;
         case 3:
+          knapsack.bruteForce();
           break;
         case 4:
           break;
