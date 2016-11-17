@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Tubes {
 
       private ArrayList<Barang> barang;
+      private TreeBarang treeBarang;
       private int kapasitas;
 
       public int pangkatDua(int n){
@@ -45,10 +46,23 @@ public class Tubes {
 
       }
 
+      public boolean isLayak(int hasil){
+        return hasil!=0;
+      }
+
+      public boolean isLayak(Barang b){
+        return b.getW() <= kapasitas;
+      }
+
+      public boolean isDone(String s){
+        return s.length() == barang.size();
+      }
+
 
       public Tubes(int kapasitas){
         barang = new ArrayList<>();
         this.kapasitas = kapasitas;
+        treeBarang = new TreeBarang();
       }
 
       public void addBarang(int w , int v){
@@ -91,10 +105,40 @@ public class Tubes {
 
       }
 
-      public void backtrack(){
+      public void backtrack(Barang knapsack , TreeBarang root, int i){
+
+        Barang test = new Barang(0,0);
+
+        if(i<barang.size()){
+
+          test.setV(knapsack.getV() + barang.get(i).getV());
+          test.setW(knapsack.getW() + barang.get(i).getW());
+          if(isLayak(test)){
+            root.left = new TreeBarang();
+            root.left.solusi = root.solusi + "1";
+            knapsack.setV(test.getV());
+            knapsack.setW(test.getW());
+            i++;
+            System.out.println("Call left Child");
+            backtrack(knapsack,root.left,i);
+          }
+          else{
+            root.right = new TreeBarang();
+            root.right.solusi = root.solusi + "0";
+            i++;
+            System.out.println("Call right Child");
+            backtrack(knapsack,root.right,i);
+          }
+
+        }
+        else if(i==barang.size()){
+          System.out.println(root.solusi);
+        }
 
 
       }
+
+
 
       public void branchAndBound(){
 

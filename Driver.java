@@ -58,6 +58,9 @@ public class Driver {
           knapsack.bruteForce();
           break;
         case 4:
+          TreeBarang root = new TreeBarang();
+          root.solusi = "";
+          knapsack.backtrack(new Barang(0,0) , root, 0);
           break;
         case 5:
           break;
