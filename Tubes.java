@@ -138,9 +138,57 @@ public class Tubes {
 
       }
 
+      public double rumusUpperBound(Barang b, Barang bNext){
+          return ( b.getV() + ( (kapasitas - b.getW() )  *  bNext.d ) );
+      }
 
+      public void branchAndBound(TreeBarang root, int i, Barang knapsack ){
+          if(i<(barang.size() - 1) ){
+            double ubkiri, ubkanan;
 
-      public void branchAndBound(){
+            Barang bNext = new Barang(0,0);
+
+            bNext.setV(knapsack.getV() + barang.get(i+1).getV());
+            bNext.setW(knapsack.getW() + barang.get(i+1).getW());
+            System.out.println("val: " + knapsack.getV() + "weight:" + knapsack.getW());
+
+            if(isLayak(bNext)){
+
+              if(i==barang.size()-2){
+                ubkiri = 0;
+                ubkanan = 0;
+              }
+              else{
+
+                ubkiri = rumusUpperBound(bNext,barang.get(i+2));
+                ubkanan = rumusUpperBound(knapsack,barang.get(i+2));
+                System.out.println("ubKiri : " + ubkiri + " === ubKanan : " + ubkanan);
+              }
+
+              if(ubkiri >= ubkanan){
+                root.left = new TreeBarang();
+                root.left.solusi = root.solusi + "1";
+                branchAndBound(root.left, i+1,bNext);
+              }
+              else{
+                root.right = new TreeBarang();
+                root.right.solusi = root.solusi + "0";
+                branchAndBound(root.right, i+1 , knapsack);
+              }
+
+            }
+            else{
+              root.right = new TreeBarang();
+              root.right.solusi = root.solusi + "0";
+              System.out.println("OverWeight");
+
+              branchAndBound(root.right, i+1, knapsack);
+            }
+
+          }
+          else if(i==barang.size()-1){
+            System.out.println(root.solusi);
+          }
 
 
       }

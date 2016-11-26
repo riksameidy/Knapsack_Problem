@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Driver {
   public static void main(String[] args){
@@ -50,6 +52,7 @@ public class Driver {
             System.out.println("idBarang: " + i);
             System.out.println("Value: " + b.getV());
             System.out.println("Weight: " + b.getW());
+            System.out.println("density = "+ b.d);
             System.out.println("===========================================");
             i++;
           }
@@ -63,6 +66,18 @@ public class Driver {
           knapsack.backtrack(new Barang(0,0) , root, 0);
           break;
         case 5:
+          Collections.sort(knapsack.getBarang(), new Comparator<Barang>(){
+            public int compare(Barang b1 , Barang b2){
+                if(b1.d==b2.d)
+                  return 0;
+                return b1.d < b2.d ? 1:-1;
+            }
+          });
+
+          TreeBarang root1 = new TreeBarang();
+          root1.solusi = "";
+
+          knapsack.branchAndBound(root1,-1,new Barang(0,0));
           break;
         case 6:
           menu = false;
